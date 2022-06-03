@@ -23,11 +23,11 @@ class MealPlan(MycroftSkill):
     def _get_meals(self) -> Dict[str, List[str]]:
         if self.first_run is True:
             with open("./meals.json", "r") as f:
+                self.meal_location.touch(exist_ok=True)
                 with open(self.meal_location, "w") as file:
                     file.write(f.read())
                     meals = loads(f.read())
             self.first_run = False
-            self.meal_location.touch(exist_ok=True)
         else:
             with open(self.meal_location, "w") as file:
                 meals = loads(file.read())
