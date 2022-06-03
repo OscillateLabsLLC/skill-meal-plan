@@ -9,16 +9,13 @@ from mycroft import MycroftSkill, intent_file_handler
 class MealPlan(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
+
+    def initialize(self):
         self.meals: Union[List[str], None] = self._get_meals().get("meals")
         self.meal_location = "~/.config/mycroft/skills/meal-plan-skill/meals.json"
-        self.first_run = self.first_run()
+        self.first_run = self._first_run()
 
-    @intent_file_handler("plan.meal.intent")
-    def handle_plan_meal(self, message):
-        self.speak_dialog("plan.meal")
-        self.speak(choice(self.meals))
-
-    def first_run(self) -> bool:
+    def _first_run(self) -> bool:
         return not isfile(self.meal_location)
 
     def _get_meals(self) -> Dict[str, List[str]]:
@@ -37,6 +34,11 @@ class MealPlan(MycroftSkill):
         with open(self.meals_location, "w") as f:
             dump({"meals": self.meals}, f)
             self.log.info(f"Saved meals to {self.meals_location}")
+
+    @intent_file_handler("plan.meal.intent")
+    def handle_plan_meal(self, message):
+        self.speak_dialog("plan.meal")
+        self.speak(choice(self.meals))
 
     @intent_file_handler("add.meal.intent")
     def add_meal(self):
@@ -58,8 +60,8 @@ class MealPlan(MycroftSkill):
     @intent_file_handler("list.meal.intent")
     def list_meals(self):
         if len(self.meals) > 10:
-            conf = self.get_response("Are you sure? You have more than 10 meals listed. This may take some time.")
-            if conf.lower() not in (
+            confirm = self.get_response("Are you sure? You have more than 10 meals listed. This may take some time.")
+            if confirm.lower() not in (
                 "yes",
                 "absolutely",
                 "that's fine",
