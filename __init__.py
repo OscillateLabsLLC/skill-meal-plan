@@ -13,8 +13,9 @@ class MealPlan(MycroftSkill):
         MycroftSkill.__init__(self)
         self.meals_location = Path(Path.home()) / ".config/mycroft/skills/meal-plan-skill/meals.json"
         self.meals_location.touch(exist_ok=True)
-        with open(self.meals_location, "w") as f:
-            dump(INITIAL_MEALS, f)
+        with open(self.meals_location, "a") as f:
+            if not f.read():
+                dump(INITIAL_MEALS, f)
 
     def initialize(self):
         self.meals_location = Path(Path.home()) / ".config/mycroft/skills/meal-plan-skill/meals.json"
