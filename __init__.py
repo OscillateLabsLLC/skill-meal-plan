@@ -33,6 +33,7 @@ class MealPlan(MycroftSkill):
 
     @intent_file_handler("plan.meal.intent")
     def handle_plan_meal(self, message):
+        self._get_meals()
         self.speak_dialog("plan.meal")
         self.speak(choice(self.meals))
 
@@ -55,6 +56,7 @@ class MealPlan(MycroftSkill):
 
     @intent_file_handler("list.meal.intent")
     def handle_list_meals(self):
+        self._get_meals()
         if len(self.meals) > 10:
             confirm = self.get_response("Are you sure? You have more than 10 meals listed. This may take some time.")
             if confirm.lower() not in (
