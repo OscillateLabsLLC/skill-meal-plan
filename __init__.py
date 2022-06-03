@@ -11,18 +11,18 @@ INITIAL_MEALS = {"meals": ["Spaghetti and meatballs", "Toasted sandwiches and to
 class MealPlan(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
-        self.meal_location = Path(Path.home()) / ".config/mycroft/skills/meal-plan-skill/meals.json"
-        self.meal_location.touch(exist_ok=True)
-        with open(self.meal_location, "w") as f:
+        self.meals_location = Path(Path.home()) / ".config/mycroft/skills/meal-plan-skill/meals.json"
+        self.meals_location.touch(exist_ok=True)
+        with open(self.meals_location, "w") as f:
             dump(INITIAL_MEALS, f)
 
     def initialize(self):
-        self.meal_location = Path(Path.home()) / ".config/mycroft/skills/meal-plan-skill/meals.json"
+        self.meals_location = Path(Path.home()) / ".config/mycroft/skills/meal-plan-skill/meals.json"
         self.meals: Union[List[str], None] = self._get_meals().get("meals")
         self._save_meals()
 
     def _get_meals(self) -> Dict[str, List[str]]:
-        with open(self.meal_location, "r") as file:
+        with open(self.meals_location, "r") as file:
             meals = loads(file.read())
         return meals
 
