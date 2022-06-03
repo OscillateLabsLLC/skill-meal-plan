@@ -26,7 +26,7 @@ class MealPlan(MycroftSkill):
         try:
             self.meals.append(new_meal)  # TODO: Better error handling - what failed?
             with open("meals.json", "w") as f:
-                f.write(dump({"meals": self.meals}), f)
+                f.write(dump({"meals": self.meals}, f))
             self.speak(f"Okay, I've added {new_meal} to your list of meals. Yum!")
         except Exception as e:
             self.log.exception(e)
