@@ -2,7 +2,6 @@ from json import loads, dump
 from os import path
 from pathlib import Path
 from random import choice
-from time import sleep
 from typing import Dict, List
 
 from mycroft import MycroftSkill, intent_file_handler
@@ -38,7 +37,7 @@ class MealPlan(MycroftSkill):
     def handle_plan_meal(self, message):
         self.meals = self._get_meals().get("meals")
         self.speak_dialog("plan.meal")
-        sleep(2)
+
         self.speak(choice(self.meals))
 
     @intent_file_handler("add.meal.intent")
