@@ -16,7 +16,7 @@ class MealPlan(MycroftSkill):
         self.speak(choice(self.meals))
 
     def get_meals(self) -> Dict[str, List[str]]:
-        with open("meals.json", "r") as f:
+        with open("/opt/mycroft/skills/meal-plan-skill/meals.json", "r") as f:
             return loads(f.read())
 
     @intent_file_handler("add.meal.intent")
