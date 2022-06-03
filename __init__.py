@@ -12,7 +12,7 @@ class MealPlan(MycroftSkill):
         MycroftSkill.__init__(self)
 
     def initialize(self):
-        self.meal_location = Path("~/.config/mycroft/skills/meal-plan-skill/meals.json")
+        self.meal_location = Path(Path.home()) / ".config/mycroft/skills/meal-plan-skill/meals.json"
         self.first_run = self._first_run()
         self.meals: Union[List[str], None] = self._get_meals().get("meals")
         self._save_meals()
