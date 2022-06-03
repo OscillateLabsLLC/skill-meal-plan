@@ -22,7 +22,7 @@ class MealPlan(MycroftSkill):
 
     def _get_meals(self) -> Dict[str, List[str]]:
         if self.first_run is True:
-            with open("./meals.json", "r") as f:
+            with open(Path.home() / ".config/mycroft/skills/meal-plan-skill/meals.json", "r") as f:
                 self.meal_location.touch(exist_ok=True)
                 with open(self.meal_location, "w") as file:
                     file.write(f.read())
