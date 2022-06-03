@@ -1,4 +1,5 @@
 from json import loads, dump
+from os import path
 from pathlib import Path
 from random import choice
 from typing import Dict, List, Union
@@ -13,13 +14,13 @@ class MealPlan(MycroftSkill):
         MycroftSkill.__init__(self)
         self.meals_location = Path(Path.home()) / ".config/mycroft/skills/meal-plan-skill/meals.json"
         self.meals_location.touch(exist_ok=True)
-        with open(self.meals_location, "w+") as f:
-            if not f.read():
+        if path.getsize(self.meals_location) == 0:
+            with open(self.meals_location, "w") as f:
                 dump(INITIAL_MEALS, f)
 
     def initialize(self):
         self.meals_location = Path(Path.home()) / ".config/mycroft/skills/meal-plan-skill/meals.json"
-        self.meals: Union[List[str], None] = self._get_meals().get("meals")
+        self.meals = self._get_meals().get("meals")
         self._save_meals()
 
     def _get_meals(self) -> Dict[str, List[str]]:
