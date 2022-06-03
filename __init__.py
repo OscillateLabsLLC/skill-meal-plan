@@ -20,7 +20,7 @@ class MealPlan(MycroftSkill):
         self._save_meals()
 
     def _get_meals(self) -> Dict[str, List[str]]:
-        with open(self.meal_location, "w") as file:
+        with open(self.meal_location, "r") as file:
             meals = loads(file.read())
         return meals
 
