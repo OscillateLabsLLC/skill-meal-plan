@@ -5,7 +5,7 @@ from typing import Dict, List, Union
 
 from mycroft import MycroftSkill, intent_file_handler
 
-INITIAL_MEALS = {"Spaghetti and meatballs", "Toasted sandwiches and tomato soap", "Chicken noodle soup"}
+INITIAL_MEALS = {"meals": ["Spaghetti and meatballs", "Toasted sandwiches and tomato soap", "Chicken noodle soup"]}
 
 
 class MealPlan(MycroftSkill):
