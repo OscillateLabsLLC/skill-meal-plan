@@ -1,5 +1,6 @@
 from json import loads, dump
 from os.path import isfile
+from pathlib import Path
 from random import choice
 from typing import Dict, List, Union
 
@@ -11,9 +12,10 @@ class MealPlan(MycroftSkill):
         MycroftSkill.__init__(self)
 
     def initialize(self):
-        self.meal_location = "~/.config/mycroft/skills/meal-plan-skill/meals.json"
+        self.meal_location = Path("~/.config/mycroft/skills/meal-plan-skill/meals.json")
         self.first_run = self._first_run()
         self.meals: Union[List[str], None] = self._get_meals().get("meals")
+        self._save_meals()
 
     def _first_run(self) -> bool:
         return not isfile(self.meal_location)
@@ -25,6 +27,7 @@ class MealPlan(MycroftSkill):
                     file.write(f.read())
                     meals = loads(f.read())
             self.first_run = False
+            self.meal_location.touch(exist_ok=True)
         else:
             with open(self.meal_location, "w") as file:
                 meals = loads(file.read())
