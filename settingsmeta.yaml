@@ -1,4 +1,3 @@
-
 skillMetadata:
   sections:
     - name: Options << Name of section
@@ -11,7 +10,7 @@ skillMetadata:
     - name: Login << Name of another section
       fields:
         - type: label
-          label: Just a little bit of extra info for the user to understand following settings
+          label: Meals
         - name: username
           type: text
           label: Username
