@@ -11,9 +11,9 @@ class MealPlan(MycroftSkill):
         MycroftSkill.__init__(self)
 
     def initialize(self):
-        self.meals: Union[List[str], None] = self._get_meals().get("meals")
         self.meal_location = "~/.config/mycroft/skills/meal-plan-skill/meals.json"
         self.first_run = self._first_run()
+        self.meals: Union[List[str], None] = self._get_meals().get("meals")
 
     def _first_run(self) -> bool:
         return not isfile(self.meal_location)
