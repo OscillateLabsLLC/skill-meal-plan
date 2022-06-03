@@ -16,7 +16,7 @@ class MealPlan(MycroftSkill):
         self.speak(choice(self.meals))
 
     def get_meals(self) -> Dict[str, List[str]]:
-        with open("/opt/mycroft/skills/meal-plan-skill/meals.json", "r") as f:
+        with open("./meals.json", "r") as f:
             return loads(f.read())
 
     @intent_file_handler("add.meal.intent")
@@ -24,8 +24,9 @@ class MealPlan(MycroftSkill):
         # Wait for a response and add it to meals.json, then call self.get_meals()
         new_meal = self.get_response("add.meal")
         try:
+            self.log.info(new_meal)
             self.meals.append(new_meal)  # TODO: Better error handling - what failed?
-            self.log.debug({"meals": self.meals})
+            self.log.info({"meals": self.meals})
             with open("meals.json", "w") as f:
                 f.write(dump({"meals": self.meals}, f))
             self.speak(f"Okay, I've added {new_meal} to your list of meals. Yum!")
