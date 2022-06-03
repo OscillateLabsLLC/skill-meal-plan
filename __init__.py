@@ -1,4 +1,5 @@
 from json import loads, dump
+from os.path import isfile
 from random import choice
 from typing import Dict, List, Union
 
@@ -8,27 +9,43 @@ from mycroft import MycroftSkill, intent_file_handler
 class MealPlan(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
-        self.meals: Union[List[str], None] = self.get_meals().get("meals")
+        self.meals: Union[List[str], None] = self._get_meals().get("meals")
+        self.meal_location = "~/.config/mycroft/skills/meal-plan-skill/meals.json"
+        self.first_run = self.first_run()
 
     @intent_file_handler("plan.meal.intent")
     def handle_plan_meal(self, message):
         self.speak_dialog("plan.meal")
         self.speak(choice(self.meals))
 
-    def get_meals(self) -> Dict[str, List[str]]:
-        with open("./meals.json", "r") as f:
-            return loads(f.read())
+    def first_run(self) -> bool:
+        return not isfile(self.meal_location)
+
+    def _get_meals(self) -> Dict[str, List[str]]:
+        if self.first_run is True:
+            with open("./meals.json", "r") as f:
+                with open(self.meal_location, "w") as file:
+                    file.write(f.read())
+                    meals = loads(f.read())
+            self.first_run = False
+        else:
+            with open(self.meal_location, "w") as file:
+                meals = loads(file.read())
+        return meals
+
+    def _save_meals(self) -> None:
+        with open(self.meals_location, "w") as f:
+            dump({"meals": self.meals}, f)
+            self.log.info(f"Saved meals to {self.meals_location}")
 
     @intent_file_handler("add.meal.intent")
     def add_meal(self):
-        # Wait for a response and add it to meals.json, then call self.get_meals()
+        # Wait for a response and add it to meals.json
         new_meal = self.get_response("add.meal")
         try:
-            self.log.info(new_meal)
+            self.log.info(f"Adding a new meal: {new_meal}")
             self.meals.append(new_meal)  # TODO: Better error handling - what failed?
-            self.log.info({"meals": self.meals})
-            with open("meals.json", "w") as f:
-                f.write(dump({"meals": self.meals}, f))
+            self._save_meals()
             self.speak(f"Okay, I've added {new_meal} to your list of meals. Yum!")
         except Exception as e:
             self.log.exception(e)
