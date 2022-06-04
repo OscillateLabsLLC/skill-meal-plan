@@ -48,9 +48,10 @@ class MealPlan(MycroftSkill):
         new_meal = self.get_response("add.meal")
         try:
             self.log.info(f"Adding a new meal: {new_meal}")
-            self.meals.append(new_meal)
-            self._save_meals()
-            self.speak(f"Okay, I've added {new_meal} to your list of meals. Yum!")
+            if new_meal:
+                self.meals.append(new_meal)
+                self._save_meals()
+                self.speak(f"Okay, I've added {new_meal} to your list of meals. Yum!")
         except Exception as err:
             self.log.exception(err)
             self.speak("I wasn't able to add that meal. I'm sorry.")
