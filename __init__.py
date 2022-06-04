@@ -61,7 +61,7 @@ class MealPlan(MycroftSkill):
         """Handler for removing a meal from our options."""
         meal_to_remove = self.get_response("remove.meal")
         try:
-            best_guess = match_one(meal_to_remove, self.meals)
+            best_guess = match_one(meal_to_remove, self.meals)[0]
             self.log.info(f"Confirming we should remove {best_guess}")
             confirm = self.ask_yesno(f"Just to confirm, we're removing {best_guess}, right?")
             if confirm == "yes":
