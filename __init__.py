@@ -37,7 +37,7 @@ class MealPlan(MycroftSkill):
             self.log.info(f"Saved meals to {self.meals_location}")
 
     @intent_file_handler("plan.meal.intent")
-    def handle_plan_meal(self, message):
+    def handle_plan_meal(self):
         """Handler for initial intent."""
         self.meals = self._get_meals().get("meals")
         self.speak_dialog("plan.meal", data={"meal": choice(self.meals)})
@@ -77,15 +77,10 @@ class MealPlan(MycroftSkill):
     @intent_file_handler("list.meal.intent")
     def handle_list_meals(self):
         self.meals = self._get_meals().get("meals")
-        if len(self.meals) > 10:
-            confirm = self.get_response("Are you sure? You have more than 10 meals listed. This may take some time.")
-            if confirm.lower() not in (
-                "yes",
-                "absolutely",
-                "that's fine",
-                "i'm sure",
-                "do it",
-            ):
+        num_meals = len(self.meals)
+        if num_meals > 15:
+            confirm = self.ask_yesno(f"Are you sure? You have {num_meals} meals listed. This may take some time.")
+            if confirm == "no":
                 self.speak("Okay, I won't bore you.")
                 return
         self.speak("Okay, here are all your meal options:")

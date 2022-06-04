@@ -4,7 +4,7 @@ Suggests a meal for you to make
 
 ## About
 
-Suggests a meal for you to make, with full CRUD capabilities!
+Suggests a meal for you to make, based on a short default list, but you can manage your own meals!
 
 ## Examples
 

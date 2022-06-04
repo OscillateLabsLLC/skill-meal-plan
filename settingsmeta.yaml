@@ -2,20 +2,8 @@ skillMetadata:
   sections:
     - name: Options << Name of section
       fields:
-        - name: internal_python_variable_name
+        - name: placeholder
           type: text
-          label: Setting Friendly Display Name
+          label: Placeholder
           value: ""
-          placeholder: demo prompt in the input box
-    - name: Login << Name of another section
-      fields:
-        - type: label
-          label: Meals
-        - name: username
-          type: text
-          label: Username
-          value: ""
-        - name: password
-          type: password
-          label: Password
-          value: ""
+          placeholder: This space for rent
