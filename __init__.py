@@ -36,9 +36,7 @@ class MealPlan(MycroftSkill):
     @intent_file_handler("plan.meal.intent")
     def handle_plan_meal(self, message):
         self.meals = self._get_meals().get("meals")
-        self.speak_dialog("plan.meal")
-
-        self.speak(choice(self.meals))
+        self.speak_dialog("plan.meal", data={"meal": choice(self.meals)})
 
     @intent_file_handler("add.meal.intent")
     def handle_add_meal(self):
