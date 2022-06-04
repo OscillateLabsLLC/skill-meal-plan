@@ -4,7 +4,8 @@ from pathlib import Path
 from random import choice
 from typing import Dict, List
 
-from mycroft import MycroftSkill, intent_file_handler, parse
+from mycroft import MycroftSkill, intent_file_handler
+from mycroft.util.parse import match_one
 
 INITIAL_MEALS = {"meals": ["Spaghetti and meatballs", "Toasted sandwiches and tomato soup", "Chicken noodle soup"]}
 
@@ -59,7 +60,7 @@ class MealPlan(MycroftSkill):
         """Handler for removing a meal from our options."""
         meal_to_remove = self.get_response("remove.meal")
         try:
-            best_guess = parse.match_one(meal_to_remove, self.meals)
+            best_guess = match_one(meal_to_remove, self.meals)
             self.log.info(f"Confirming we should remove {best_guess}")
             confirm = self.ask_yesno(f"Just to confirm, we're removing {best_guess}, right?")
             if confirm == "yes":
