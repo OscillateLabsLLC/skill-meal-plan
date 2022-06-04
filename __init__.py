@@ -1,4 +1,4 @@
-from json import loads, dump
+from json import dump, loads
 from os import path
 from pathlib import Path
 from random import choice
@@ -15,7 +15,7 @@ class MealPlan(MycroftSkill):
         self.meals_location = Path(Path.home()) / ".config/mycroft/skills/meal-plan-skill/meals.json"
         self.meals_location.touch(exist_ok=True)
         if path.getsize(self.meals_location) == 0:
-            with open(self.meals_location, "w") as f:
+            with open(self.meals_location, "w", encoding="utf-8") as f:
                 dump(INITIAL_MEALS, f)
 
     def initialize(self):
@@ -24,12 +24,14 @@ class MealPlan(MycroftSkill):
         self._save_meals()
 
     def _get_meals(self) -> Dict[str, List[str]]:
-        with open(self.meals_location, "r") as file:
+        """Reads in meals from file in skill directory."""
+        with open(self.meals_location, "r", encoding="utf-8") as file:
             meals = loads(file.read())
         return meals
 
     def _save_meals(self) -> None:
-        with open(self.meals_location, "w") as f:
+        """Saves instantiated meals to file in skill directory."""
+        with open(self.meals_location, "w", encoding="utf-8") as f:
             dump({"meals": self.meals}, f)
             self.log.info(f"Saved meals to {self.meals_location}")
 
@@ -47,8 +49,8 @@ class MealPlan(MycroftSkill):
             self.meals.append(new_meal)
             self._save_meals()
             self.speak(f"Okay, I've added {new_meal} to your list of meals. Yum!")
-        except Exception as e:
-            self.log.exception(e)
+        except Exception as err:
+            self.log.exception(err)
             self.speak("I wasn't able to add that meal. I'm sorry.")
 
     @intent_file_handler("remove.meal.intent")
