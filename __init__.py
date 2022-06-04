@@ -4,7 +4,7 @@ from pathlib import Path
 from random import choice
 from typing import Dict, List
 
-from mycroft import MycroftSkill, intent_file_handler
+from mycroft import MycroftSkill, intent_file_handler, parse
 
 INITIAL_MEALS = {"meals": ["Spaghetti and meatballs", "Toasted sandwiches and tomato soup", "Chicken noodle soup"]}
 
@@ -37,12 +37,13 @@ class MealPlan(MycroftSkill):
 
     @intent_file_handler("plan.meal.intent")
     def handle_plan_meal(self, message):
+        """Handler for initial intent."""
         self.meals = self._get_meals().get("meals")
         self.speak_dialog("plan.meal", data={"meal": choice(self.meals)})
 
     @intent_file_handler("add.meal.intent")
     def handle_add_meal(self):
-        # Wait for a response and add it to meals.json
+        """Wait for a response and add it to meals.json"""
         new_meal = self.get_response("add.meal")
         try:
             self.log.info(f"Adding a new meal: {new_meal}")
@@ -55,7 +56,21 @@ class MealPlan(MycroftSkill):
 
     @intent_file_handler("remove.meal.intent")
     def handle_remove_meal(self):
-        self.speak("I'm sorry, I can't remove meals yet, but I'm learning all the time.")  # TODO:
+        """Handler for removing a meal from our options."""
+        meal_to_remove = self.get_response("remove.meal")
+        try:
+            best_guess = parse.match_one(meal_to_remove, self.meals)
+            self.log.info(f"Confirming we should remove {best_guess}")
+            confirm = self.ask_yesno(f"Just to confirm, we're removing {best_guess}, right?")
+            if confirm == "yes":
+                self.meals.remove(best_guess)
+                self._save_meals()
+                self.speak("Ok, I won't recommend that anymore.")
+            else:
+                self.acknowledge()
+        except Exception as err:
+            self.log.exception(err)
+            self.speak("I couldn't remove that meal. I'm sorry.")
 
     @intent_file_handler("list.meal.intent")
     def handle_list_meals(self):
