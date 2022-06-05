@@ -1,6 +1,4 @@
 from json import dump, loads
-from os import path
-from pathlib import Path
 from random import choice
 from typing import Dict, List
 
@@ -13,26 +11,25 @@ INITIAL_MEALS = {"meals": ["Spaghetti and meatballs", "Toasted sandwiches and to
 class MealPlan(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
-        self.meals_location = Path(Path.home()) / ".config/mycroft/skills/meal-plan-skill/meals.json"
-        self.meals_location.touch(exist_ok=True)
-        if path.getsize(self.meals_location) == 0:
-            with open(self.meals_location, "w", encoding="utf-8") as f:
+        self.meals_location = "meals.json"
+        if not self.file_system.exists(self.meals_location):
+            with self.file_system.open(self.meals_location, "w") as f:
                 dump(INITIAL_MEALS, f)
 
     def initialize(self):
-        self.meals_location = Path(Path.home()) / ".config/mycroft/skills/meal-plan-skill/meals.json"
+        self.meals_location = "meals.json"
         self.meals = self._get_meals().get("meals")
         self._save_meals()
 
     def _get_meals(self) -> Dict[str, List[str]]:
         """Reads in meals from file in skill directory."""
-        with open(self.meals_location, "r", encoding="utf-8") as file:
+        with self.file_system.open(self.meals_location, "r") as file:
             meals = loads(file.read())
         return meals
 
     def _save_meals(self) -> None:
         """Saves instantiated meals to file in skill directory."""
-        with open(self.meals_location, "w", encoding="utf-8") as f:
+        with self.file_system.open(self.meals_location, "w") as f:
             dump({"meals": self.meals}, f)
             self.log.info(f"Saved meals to {self.meals_location}")
 
