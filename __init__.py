@@ -1,88 +1,99 @@
-from json import dump, loads
+# pylint: disable=missing-module-docstring,attribute-defined-outside-init,broad-exception-caught,invalid-name
 from random import choice
-from typing import Dict, List
 
-from mycroft import MycroftSkill, intent_file_handler
-from mycroft.util.parse import match_one
+from ovos_bus_client.message import Message
+from ovos_utils.parse import match_one
+from ovos_workshop.decorators import intent_handler
+from ovos_workshop.skills import OVOSSkill
 
-INITIAL_MEALS = {"meals": ["Spaghetti and meatballs", "Toasted sandwiches and tomato soup", "Chicken noodle soup"]}
+INITIAL_MEALS = (
+    "Spaghetti and meatballs,Toasted sandwiches and tomato soup,"
+    "Chicken noodle soup,Peanut butter and jelly sandwiches"
+)
 
 
-class MealPlan(MycroftSkill):
-    def __init__(self):
-        MycroftSkill.__init__(self)
-        self.meals_location = "meals.json"
-        if not self.file_system.exists(self.meals_location):
-            with self.file_system.open(self.meals_location, "w") as f:
-                dump(INITIAL_MEALS, f)
+class MealPlanSkill(OVOSSkill):
+    """A skill to help plan meals."""
 
-    def initialize(self):
-        self.meals_location = "meals.json"
-        self.meals = self._get_meals().get("meals")
-        self._save_meals()
+    def __init__(self, *args, bus=None, skill_id="", **kwargs):
+        OVOSSkill.__init__(self, *args, bus=bus, skill_id=skill_id, **kwargs)
 
-    def _get_meals(self) -> Dict[str, List[str]]:
-        """Reads in meals from file in skill directory."""
-        with self.file_system.open(self.meals_location, "r") as file:
-            meals = loads(file.read())
+    @property
+    def _core_lang(self):
+        """Backwards compatibility for older versions."""
+        return self.core_lang
+
+    @property
+    def _secondary_langs(self):
+        """Backwards compatibility for older versions."""
+        return self.secondary_langs
+
+    @property
+    def _native_langs(self):
+        """Backwards compatibility for older versions."""
+        return self.native_langs
+
+    @property
+    def meals(self):
+        """Get the list of meals from the settings file. Comma-separated string."""
+        meals = self.settings.get("meals", INITIAL_MEALS)
+        meals = meals.replace(", ", ",").replace(" ,", ",")
         return meals
 
-    def _save_meals(self) -> None:
-        """Saves instantiated meals to file in skill directory."""
-        with self.file_system.open(self.meals_location, "w") as f:
-            dump({"meals": self.meals}, f)
-            self.log.info(f"Saved meals to {self.meals_location}")
+    @meals.setter
+    def meals(self, value):
+        self.settings["meals"] = value
 
-    @intent_file_handler("plan.meal.intent")
-    def handle_plan_meal(self):
+    def _remove_meal(self, meal: str) -> str:
+        """Remove a meal from our list of meals."""
+        meals = self.meals.split(",")
+        meals.remove(meal)
+        return ",".join(meals)
+
+    @intent_handler("plan.meal.intent")
+    def handle_plan_meal(self, _: Message):
         """Handler for initial intent."""
-        self.meals = self._get_meals().get("meals")
-        self.speak_dialog("plan.meal", data={"meal": choice(self.meals)})
+        self.speak_dialog("plan.meal", data={"meal": choice(self.meals.split(","))})
 
-    @intent_file_handler("add.meal.intent")
-    def handle_add_meal(self):
+    @intent_handler("add.meal.intent")
+    def handle_add_meal(self, _: Message):
         """Wait for a response and add it to meals.json"""
         new_meal = self.get_response("add.meal")
         try:
             self.log.info(f"Adding a new meal: {new_meal}")
             if new_meal:
-                self.meals.append(new_meal)
-                self._save_meals()
-                self.speak(f"Okay, I've added {new_meal} to your list of meals. Yum!")
+                self.meals = f"{self.meals},{new_meal}"
+                self.speak_dialog("meal.added")
         except Exception as err:
             self.log.exception(err)
-            self.speak("I wasn't able to add that meal. I'm sorry.")
+            self.speak_dialog("failed.to.add.meal")
 
-    @intent_file_handler("remove.meal.intent")
-    def handle_remove_meal(self):
+    @intent_handler("remove.meal.intent")
+    def handle_remove_meal(self, _: Message):
         """Handler for removing a meal from our options."""
         meal_to_remove = self.get_response("remove.meal")
         try:
             best_guess = match_one(meal_to_remove, self.meals)[0]
             self.log.info(f"Confirming we should remove {best_guess}")
-            confirm = self.ask_yesno(f"Just to confirm, we're removing {best_guess}, right?")
+            confirm = self.ask_yesno("confirm.remove.meal", {"meal": best_guess})
             if confirm == "yes":
-                self.meals.remove(best_guess)
-                self._save_meals()
-                self.speak("Ok, I won't recommend that anymore.")
+                self.meals = self._remove_meal(best_guess)
+                self.speak_dialog("meal.removed")
             else:
                 self.acknowledge()
         except Exception as err:
             self.log.exception(err)
-            self.speak("I couldn't remove that meal. I'm sorry.")
+            self.speak_dialog("failed.to.remove.meal")
 
-    @intent_file_handler("list.meal.intent")
-    def handle_list_meals(self):
-        self.meals = self._get_meals().get("meals")
+    @intent_handler("list.meal.intent")
+    def handle_list_meals(self, _: Message):
+        """List all the meals we have. If there are more than 15, ask for confirmation."""
         num_meals = len(self.meals)
         if num_meals > 15:
-            confirm = self.ask_yesno(f"Are you sure? You have {num_meals} meals listed. This may take some time.")
+            confirm = self.ask_yesno("confirm.list.meals", {"num_meals": num_meals})
             if confirm == "no":
-                self.speak("Okay, I won't bore you.")
+                self.speak_dialog("skip.list.meals")
                 return
-        self.speak("Okay, here are all your meal options:")
-        self.speak(", ".join(self.meals))
-
-
-def create_skill():
-    return MealPlan()
+        self.speak_dialog(
+            "list.meals.dialog", {"meals": ", ".join(self.meals.split(","))}
+        )

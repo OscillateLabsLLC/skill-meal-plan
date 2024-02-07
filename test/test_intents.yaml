@@ -1,0 +1,7 @@
+intents:
+  # Padatious intents are the `.intent` file names
+  padatious:
+    - add.meal.intent
+    - list.meal.intent
+    - plan.meal.intent
+    - remove.meal.intent

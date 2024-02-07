@@ -8,9 +8,9 @@ Suggests a meal for you to make, based on a short default list, but you can mana
 
 ## Examples
 
-- "What should i make for dinner?"
-- "What should i eat?"
-- "What should i eat tonight?"
+- "What should I make for dinner?"
+- "What should I eat?"
+- "What should I eat tonight?"
 - "I'm hungry"
 - "What's for dinner?"
 
@@ -25,8 +25,8 @@ Productivity
 
 ## Tags
 
-#Food meal planning
-#Food
-#Meal
-#Planning
-#Meal planning
+Food meal planning
+Food
+Meal
+Planning
+Meal planning

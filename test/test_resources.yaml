@@ -1,0 +1,32 @@
+# Specify resources to test here.
+
+# Specify languages to be tested
+languages:
+  - "en-us"
+
+# vocab is lowercase .voc file basenames
+vocab: []
+
+dialog:
+  - add.meal
+  - confirm.list.meals
+  - confirm.remove.meal
+  - failed.to.add.meal
+  - failed.to.remove.meal
+  - list.meals
+  - meal.added
+  - meal.removed
+  - plan.meal
+  - remove.meal
+  - skip.list.meals
+# regex entities, not necessarily filenames
+regex: []
+intents:
+  # Padatious intents are the `.intent` file names
+  padatious:
+    - add.meal.intent
+    - list.meal.intent
+    - plan.meal.intent
+    - remove.meal.intent
+  # Adapt intents are the name passed to the constructor
+  adapt: []
