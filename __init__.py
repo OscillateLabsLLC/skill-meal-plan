@@ -1,14 +1,21 @@
+# TODO: Remove unused OVOS imports
+from ovos_workshop.decorators import intent_handler
+from ovos_workshop.skills import OVOSSkill
+from ovos_utils.intents import IntentBuilder
+from ovos_bus_client.message import Message
 from json import dump, loads
 from random import choice
 from typing import Dict, List
 
-from mycroft import MycroftSkill, intent_file_handler
-from mycroft.util.parse import match_one
+# TODO: Remove all Mycroft imports
+# from mycroft import MycroftSkill, intent_file_handler
+# TODO: Remove all Mycroft imports
+# from mycroft.util.parse import match_one
 
 INITIAL_MEALS = {"meals": ["Spaghetti and meatballs", "Toasted sandwiches and tomato soup", "Chicken noodle soup"]}
 
 
-class MealPlan(MycroftSkill):
+class MealPlan(OVOSSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
         self.meals_location = "meals.json"
@@ -84,5 +91,6 @@ class MealPlan(MycroftSkill):
         self.speak(", ".join(self.meals))
 
 
+# TODO: Remove create_skill() function
 def create_skill():
     return MealPlan()
