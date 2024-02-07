@@ -7,19 +7,18 @@ languages:
 # vocab is lowercase .voc file basenames
 vocab: []
 
-# dialog is .dialog file basenames (case-sensitive)
 dialog:
-  - add.meal.dialog
-  - confirm.list.meals.dialog
+  - add.meal
+  - confirm.list.meals
   - confirm.remove.meal
-  - failed.to.add.meal.dialog
-  - failed.to.remove.meal.dialog
-  - list.meals.dialog
-  - meal.added.dialog
-  - meal.removed.dialog
-  - plan.meal.dialog
-  - remove.meal.dialog
-  - skip.list.meals.dialog
+  - failed.to.add.meal
+  - failed.to.remove.meal
+  - list.meals
+  - meal.added
+  - meal.removed
+  - plan.meal
+  - remove.meal
+  - skip.list.meals
 # regex entities, not necessarily filenames
 regex: []
 intents:
