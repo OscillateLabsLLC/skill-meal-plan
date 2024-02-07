@@ -9,8 +9,9 @@ on:
       - master
       - main
 jobs:
-  license_tests:
-    name: license_tests
-    permissions:
-      contents: read
-    uses: neongeckocom/.github/.github/workflows/license_tests.yml@master
+  license:
+    uses: openvoiceos/.github/.github/workflows/license_tests.yml@feat/shared_actions1
+    with:
+      branch: ${{ github.event.pull_request.head.ref || github.event.inputs.branch }}
+      action_branch: feat/shared_actions1
+      python-version: "3.10"

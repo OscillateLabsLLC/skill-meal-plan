@@ -5,28 +5,27 @@ on:
   pull_request: {}
   workflow_dispatch: {}
 jobs:
-  py_build_tests:
-    name: py_build_tests
-    permissions:
-      contents: read
-    uses: neongeckocom/.github/.github/workflows/python_build_tests.yml@master
-  skill_unit_tests:
-    name: skill_unit_tests
-    permissions:
-      contents: read
-    uses: neongeckocom/.github/.github/workflows/skill_tests.yml@master
-  skill_intent_tests:
-    name: skill_intent_tests
-    permissions:
-      contents: read
-    uses: neongeckocom/.github/.github/workflows/skill_test_intents.yml@master
-  skill_resource_tests:
-    name: skill_resource_tests
-    permissions:
-      contents: read
-    uses: neongeckocom/.github/.github/workflows/skill_test_resources.yml@master
-  skill_install_tests:
-    name: skill_install_tests
-    permissions:
-      contents: read
-    uses: neongeckocom/.github/.github/workflows/skill_test_installation.yml@master
+  build-tests:
+    uses: openvoiceos/.github/.github/workflows/python_build_tests.yml@feat/shared_actions1
+    with:
+      python_matrix: '[3.8, 3.9, "3.10", "3.11"]'
+  unit-tests:
+    uses: openvoiceos/.github/.github/workflows/pytest_file_or_dir.yml@feat/shared_actions1
+    with:
+      action_branch: "feat/shared_actions1"
+      python_matrix: '[3.8, 3.9, "3.10", "3.11"]'
+      install_extras: "test"
+      test_location: test
+      is_skill: true
+  test-resources:
+    uses: openvoiceos/.github/.github/workflows/skill_test_resources.yml@feat/shared_actions1
+    with:
+      action_branch: feat/shared_actions1
+      intent_testfile: test/test_resources.yaml
+  install-tests:
+    uses: openvoiceos/.github/.github/workflows/skill_test_installation.yml@feat/shared_actions1
+    with:
+      action_branch: feat/shared_actions1
+      python_matrix: '[3.8,3.9,"3.10","3.11"]'
+      skill_id: MealPlanSkill
+      skill_location: ""

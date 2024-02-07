@@ -1,5 +1,12 @@
 {
   "type": "@mikejgray/ovos-skill-projen.OVOSSkillProject",
   "name": "meal-plan-skill",
-  "retrofit": true
+  "retrofit": true,
+  "author": "Mike Gray",
+  "authorAddress": "mike@graywind.org",
+  "authorHandle": "mikejgray",
+  "repositoryUrl": "https://github.com/mikejgray/skill-meal-plan",
+  "packageDir": ".",
+  "skillClass": "MealPlanSkill",
+  "license": "Apache-2.0"
 }
