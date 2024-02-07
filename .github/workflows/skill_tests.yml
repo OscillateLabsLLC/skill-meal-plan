@@ -10,13 +10,19 @@ jobs:
     with:
       python_matrix: '[3.8, 3.9, "3.10", "3.11"]'
   unit-tests:
-    uses: openvoiceos/.github/.github/workflows/pytest_file_or_dir.yml@feat/shared_actions1
-    with:
-      action_branch: "feat/shared_actions1"
-      python_matrix: '[3.8, 3.9, "3.10", "3.11"]'
-      install_extras: "test"
-      test_location: test
-      is_skill: true
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: [3.8, 3.9, "3.10", "3.11"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install dependencies
+        run: pip install ".[test]" pytest-cov
+      - name: Run tests
+        run: pytest --cov=.
   skill_intent_tests:
     uses: neongeckocom/.github/.github/workflows/skill_test_intents.yml@master
     with:
