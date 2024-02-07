@@ -1,1 +1,56 @@
-{}
+{
+    "title": "Meal Plan",
+    "url": "https://github.com/mikejgray/skill-meal-plan",
+    "summary": "Suggests a meal for you to make",
+    "short_description": "Suggests a meal for you to make",
+    "description": "Suggests a meal for you to make, based on a short default list, but you can manage your own meals!",
+    "examples": [
+        "What should I make for dinner?",
+        "What should I eat?",
+        "What should I eat tonight?",
+        "I'm hungry",
+        "What's for dinner?"
+    ],
+    "desktopFile": false,
+    "warning": "",
+    "systemDeps": false,
+    "requirements": {
+        "python": [
+            "ovos-utils~=0.0, >=0.0.38",
+            "ovos-workshop~=0.0, >=0.0.15"
+        ],
+        "system": {},
+        "skill": []
+    },
+    "incompatible_skills": [],
+    "platforms": [
+        "i386",
+        "x86_64",
+        "ia64",
+        "arm64",
+        "arm"
+    ],
+    "branch": "master",
+    "license": "Unknown",
+    "icon": "https://raw.githack.com/FortAwesome/Font-Awesome/master/svgs/solid/utensils.svg",
+    "category": "Daily",
+    "categories": [
+        "Daily",
+        "Productivity"
+    ],
+    "tags": [
+        "Food meal planning",
+        "Food",
+        "Meal",
+        "Planning",
+        "Meal planning"
+    ],
+    "credits": [
+        "Mike",
+        "Gray",
+        "<mike@graywind.org>"
+    ],
+    "skillname": "skill-meal-plan",
+    "authorname": "mikejgray",
+    "foldername": null
+}
