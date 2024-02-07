@@ -24,6 +24,16 @@ class MealPlanSkill(OVOSSkill):
         return self.core_lang
 
     @property
+    def _secondary_langs(self):
+        """Backwards compatibility for older versions."""
+        return self.secondary_langs
+
+    @property
+    def _native_langs(self):
+        """Backwards compatibility for older versions."""
+        return self.native_langs
+
+    @property
     def meals(self):
         """Get the list of meals from the settings file. Comma-separated string."""
         meals = self.settings.get("meals", INITIAL_MEALS)
