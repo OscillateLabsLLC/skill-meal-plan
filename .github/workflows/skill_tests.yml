@@ -17,15 +17,20 @@ jobs:
       install_extras: "test"
       test_location: test
       is_skill: true
-  test-resources:
-    uses: openvoiceos/.github/.github/workflows/skill_test_resources.yml@feat/shared_actions1
-    with:
-      action_branch: feat/shared_actions1
-      intent_testfile: test/test_resources.yaml
   install-tests:
     uses: openvoiceos/.github/.github/workflows/skill_test_installation.yml@feat/shared_actions1
     with:
       action_branch: feat/shared_actions1
       python_matrix: '[3.8,3.9,"3.10","3.11"]'
-      skill_id: MealPlanSkill
+      skill_id: skill-meal-plan.mikejgray
       skill_location: ""
+  skill_intent_tests:
+    uses: neongeckocom/.github/.github/workflows/skill_test_intents.yml@master
+    with:
+      test_padacioso: false
+      neon_versions: "[ 3.8, 3.9, '3.10', '3.11' ]"
+      ovos_versions: "[ 3.8, 3.9, '3.10', '3.11' ]"
+  skill_resource_tests:
+    uses: neongeckocom/.github/.github/workflows/skill_test_resources.yml@master
+    with:
+      skill_entrypoint: skill-meal-plan.mikejgray
