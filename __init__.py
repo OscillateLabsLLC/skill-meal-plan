@@ -88,7 +88,7 @@ class MealPlanSkill(OVOSSkill):
     @intent_handler("list.meal.intent")
     def handle_list_meals(self, _: Message):
         """List all the meals we have. If there are more than 15, ask for confirmation."""
-        num_meals = len(self.meals)
+        num_meals = len(self.meals.split(","))
         if num_meals > 15:
             confirm = self.ask_yesno("confirm.list.meals", {"num_meals": num_meals})
             if confirm == "no":
