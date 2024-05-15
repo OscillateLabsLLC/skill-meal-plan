@@ -95,5 +95,5 @@ class MealPlanSkill(OVOSSkill):
                 self.speak_dialog("skip.list.meals")
                 return
         self.speak_dialog(
-            "list.meals.dialog", {"meals": ", ".join(self.meals.split(","))}
+            "list.meals", {"meals": ", ".join(self.meals.split(","))}
         )

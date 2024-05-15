@@ -61,7 +61,7 @@ class TestRandomnessSkill:
         test_skill.handle_list_meals(None)
         test_skill.speak_dialog.assert_called()
         test_skill.speak_dialog.assert_called_with(
-            "list.meals.dialog",
+            "list.meals",
             {
                 "meals": "Spaghetti and meatballs, Toasted sandwiches and tomato soup, Chicken noodle soup, Peanut butter and jelly sandwiches"
             },
@@ -73,7 +73,7 @@ class TestRandomnessSkill:
         test_skill.speak_dialog.assert_called()
         test_skill.ask_yesno.assert_not_called()
         test_skill.speak_dialog.assert_called_with(
-            "list.meals.dialog",
+            "list.meals",
             {
                 "meals": "Spaghetti and meatballs, Toasted sandwiches and tomato soup, Chicken noodle soup, Peanut butter and jelly sandwiches"
             },
@@ -86,7 +86,7 @@ class TestRandomnessSkill:
         assert test_skill.speak_dialog.called is True
         test_skill.ask_yesno.assert_called()
         test_skill.speak_dialog.assert_called_with(
-            "list.meals.dialog",
+            "list.meals",
             {
                 "meals": "0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, !, \", #, $, %, &, ', (, ), *, +, , , -, ., /, :, ;, <, =, >, ?, @, [, \\, ], ^, _, `, {, |, }, ~, , \t, \n, \r, \x0b, \x0c"
             },
