@@ -63,7 +63,7 @@ class MealPlanSkill(OVOSSkill):
             self.log.info(f"Adding a new meal: {new_meal}")
             if new_meal:
                 self.meals = f"{self.meals},{new_meal}"
-                self.speak_dialog("meal.added")
+                self.speak_dialog("meal.added", {"new_meal": new_meal})
         except Exception as err:
             self.log.exception(err)
             self.speak_dialog("failed.to.add.meal")
