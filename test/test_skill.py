@@ -1,4 +1,4 @@
-# pylint: disable=missing-docstring
+# pylint: disable=missing-docstring,redefined-outer-name
 import shutil
 import string
 from json import dumps
@@ -52,7 +52,7 @@ class TestRandomnessSkill:
     with open(join(conf_dir, "mycroft.conf"), "w", encoding="utf-8") as f:
         f.write(dumps({"Audio": {"backends": {"ocp": {"active": False}}}}))
 
-    def test_skill_is_a_valid_plugin(self, test_skill):
+    def test_skill_is_a_valid_plugin(self, _):
         assert "skill-meal-plan.mikejgray" in find_skill_plugins()
 
     def test_list_meals(self, test_skill):
@@ -91,6 +91,25 @@ class TestRandomnessSkill:
                 "meals": "0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, !, \", #, $, %, &, ', (, ), *, +, , , -, ., /, :, ;, <, =, >, ?, @, [, \\, ], ^, _, `, {, |, }, ~, , \t, \n, \r, \x0b, \x0c"
             },
         )
+
+    @pytest.mark.parametrize("meal", [
+        "cheeseburgers",
+        "spaghetti carbonara",
+        "sushi",
+        "dahl",
+        "lengua tacos",
+        "moussaka",
+        "feijoada",
+        "pad thai",
+        "tagine",
+        ])
+    def test_add_meal(self, test_skill, meal):
+        test_skill.ask_yesno = Mock()
+        test_skill.get_response = Mock(return_value=meal)
+        test_skill.handle_add_meal(None)
+        test_skill.speak_dialog.assert_called()
+        test_skill.ask_yesno.assert_not_called()
+        test_skill.speak_dialog.assert_called_with("meal.added", {"new_meal": meal})
 
 
 if __name__ == "__main__":
