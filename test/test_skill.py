@@ -52,7 +52,7 @@ class TestRandomnessSkill:
     with open(join(conf_dir, "mycroft.conf"), "w", encoding="utf-8") as f:
         f.write(dumps({"Audio": {"backends": {"ocp": {"active": False}}}}))
 
-    def test_skill_is_a_valid_plugin(self, _):
+    def test_skill_is_a_valid_plugin(self, test_skill):
         assert "skill-meal-plan.mikejgray" in find_skill_plugins()
 
     def test_list_meals(self, test_skill):
