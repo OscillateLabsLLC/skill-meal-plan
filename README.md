@@ -1,5 +1,7 @@
 # <img src="https://raw.githack.com/FortAwesome/Font-Awesome/master/svgs/solid/utensils.svg" card_color="#22A7F0" width="50" height="50" style="vertical-align:bottom"/> Meal Plan
 
+[![Status: Active](https://img.shields.io/badge/status-active-brightgreen)](https://github.com/OscillateLabsLLC/.github/blob/main/SUPPORT_STATUS.md)
+
 Suggests a meal for you to make
 
 ## About
