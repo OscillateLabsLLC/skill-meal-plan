@@ -4,6 +4,22 @@
 
 Suggests a meal for you to make
 
+## Upgrading to 2.0
+
+Version 2.0 changes the skill entry point from `skill-meal-plan.mikejgray` to `skill-meal-plan.oscillatelabsllc`. This means your saved settings (meal list) will not carry over automatically.
+
+To migrate your settings, copy your settings file:
+
+```bash
+# Mycroft/OVOS
+cp ~/.config/mycroft/skills/skill-meal-plan.mikejgray/settings.json \
+   ~/.config/mycroft/skills/skill-meal-plan.oscillatelabsllc/settings.json
+
+# Neon
+cp ~/.config/neon/skills/skill-meal-plan.mikejgray/settings.json \
+   ~/.config/neon/skills/skill-meal-plan.oscillatelabsllc/settings.json
+```
+
 ## About
 
 Suggests a meal for you to make, based on a short default list, but you can manage your own meals!
@@ -18,7 +34,7 @@ Suggests a meal for you to make, based on a short default list, but you can mana
 
 ## Credits
 
-Mike Gray <mike@graywind.org>
+Oscillate Labs
 
 ## Category
 

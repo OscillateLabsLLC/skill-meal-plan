@@ -13,7 +13,7 @@ from skill_meal_plan import MealPlanSkill
 
 
 @pytest.fixture(scope="session")
-def test_skill(test_skill_id="skill-meal-plan.mikejgray", bus=FakeBus()):
+def test_skill(test_skill_id="skill-meal-plan.oscillatelabsllc", bus=FakeBus()):
     # Get test skill
     bus.emitter = bus.ee
     bus.run_forever()
@@ -53,7 +53,7 @@ class TestRandomnessSkill:
         f.write(dumps({"Audio": {"backends": {"ocp": {"active": False}}}}))
 
     def test_skill_is_a_valid_plugin(self, test_skill):
-        assert "skill-meal-plan.mikejgray" in find_skill_plugins()
+        assert "skill-meal-plan.oscillatelabsllc" in find_skill_plugins()
 
     def test_list_meals(self, test_skill):
         test_skill.meals = "Spaghetti and meatballs,Toasted sandwiches and tomato soup,Chicken noodle soup,Peanut butter and jelly sandwiches"

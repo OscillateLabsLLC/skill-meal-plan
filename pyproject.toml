@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=64.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "skill-meal-plan"
+version = "2.0.0"
+description = "An OVOS voice skill for meal suggestions"
+authors = [{ name = "Oscillate Labs", email = "mike@oscillatelabs.net" }]
+license = { file = "LICENSE" }
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["ovos", "neon", "skill", "voice", "meal", "planning"]
+dependencies = [
+    "ovos-utils~=0.0,>=0.0.30",
+    "ovos-workshop~=0.0,>=0.0.12",
+]
+
+[project.optional-dependencies]
+test = [
+    "ovos-plugin-manager",
+    "pytest",
+    "pytest-cov",
+]
+
+[project.urls]
+Homepage = "https://github.com/oscillatelabsllc/skill-meal-plan"
+
+[project.entry-points."ovos.plugin.skill"]
+"skill-meal-plan.oscillatelabsllc" = "skill_meal_plan:MealPlanSkill"
+
+[tool.setuptools.package-data]
+skill_meal_plan = ["locale/**/*", "settingsmeta.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+addopts = "--cov=skill_meal_plan --cov-report=term-missing"
+
+[tool.ruff]
+line-length = 119
