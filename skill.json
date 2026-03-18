@@ -1,8 +1,16 @@
 {
-    "title": "meal-plan-skill",
+    "skill_id": "skill_meal_plan.oscillatelabsllc",
+    "source": "https://github.com/oscillatelabsllc/skill-meal-plan",
+    "package_name": "skill-meal-plan",
+    "pip_spec": "skill-meal-plan",
+    "license": "Apache-2.0",
+    "author": [
+        "Oscillate Labs <mike@oscillatelabs.net>"
+    ],
     "icon": "https://raw.githack.com/FortAwesome/Font-Awesome/master/svgs/solid/utensils.svg",
-    "summary": "[![Status: Active](https://img.shields.io/badge/status-active-brightgreen)](https://github.com/OscillateLabsLLC/.github/blob/main/SUPPORT_STATUS.md) Suggests a meal for you to make",
-    "description": "Suggests a meal for you to make, based on a short default list, but you can manage your own meals!",
+    "images": [],
+    "name": "skill-meal-plan",
+    "description": "An OVOS voice skill for meal suggestions",
     "examples": [
         "What should I make for dinner?",
         "What should I eat?",
@@ -10,45 +18,11 @@
         "I'm hungry",
         "What's for dinner?"
     ],
-    "credits": [
-        "Mike Gray"
+    "tags": [
+        "ovos",
+        "neon",
+        "meal",
+        "planning"
     ],
-    "categories": [
-        "Daily",
-        "Productivity"
-    ],
-    "tags": "ovos skill voice assistant",
-    "category": "Daily",
-    "package_name": "meal-plan-skill",
-    "pip_spec": "meal-plan-skill",
-    "license": "Apache-2.0",
-    "author": "Mike Gray",
-    "version": "1.0.0",
-    "url": "https://github.com/mikejgray/skill-meal-plan",
-    "skill_id": "skill-meal-plan.mikejgray=skill_meal_plan:MealPlanSkill",
-    "skillname": "skill-meal-plan",
-    "authorname": "mikejgray",
-    "name": "meal-plan-skill",
-    "requirements": {
-        "python": [
-            "ovos-utils~=0.0, >=0.0.30",
-            "ovos-workshop~=0.0, >=0.0.12"
-        ],
-        "system": {},
-        "skill": []
-    },
-    "desktopFile": false,
-    "warning": "",
-    "systemDeps": false,
-    "incompatible_skills": [],
-    "platforms": [
-        "i386",
-        "x86_64",
-        "ia64",
-        "arm64",
-        "arm"
-    ],
-    "branch": "master",
-    "foldername": null,
-    "short_description": "[![Status: Active](https://img.shields.io/badge/status-active-brightgreen)](https://github.com/OscillateLabsLLC/.github/blob/main/SUPPORT_STATUS.md) Suggests a meal for you to make"
+    "version": "2.0.0"
 }
