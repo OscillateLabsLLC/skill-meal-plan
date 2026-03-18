@@ -3,7 +3,7 @@
     "source": "https://github.com/oscillatelabsllc/skill-meal-plan",
     "package_name": "skill-meal-plan",
     "pip_spec": "skill-meal-plan",
-    "license": "Apache-2.0",
+    "license": "LICENSE",
     "author": [
         "Oscillate Labs <mike@oscillatelabs.net>"
     ],
@@ -21,6 +21,8 @@
     "tags": [
         "ovos",
         "neon",
+        "skill",
+        "voice",
         "meal",
         "planning"
     ],
