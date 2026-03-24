@@ -10,12 +10,12 @@
   "icon": "https://raw.githack.com/FortAwesome/Font-Awesome/master/svgs/solid/utensils.svg",
   "images": [],
   "name": "Plan de repas",
-  "description": "Une compétence OVOS qui suggère un repas et vous aide à gérer votre liste de repas.",
+  "description": "Un skill OVOS qui suggère un repas et vous aide à gérer votre liste de repas.",
   "examples": [
-    "Qu'est-ce que je prépare ce soir ?",
-    "Qu'est-ce que je mange ?",
-    "Qu'est-ce qu'on mange ce soir ?",
-    "J'ai faim",
+    "Propose-moi un repas pour ce soir",
+    "Quel repas me proposes-tu pour ce soir ?",
+    "Ajoute un repas à ma liste de repas",
+    "Supprime un repas de ma liste",
     "Quels sont mes repas ?"
   ],
   "tags": [
