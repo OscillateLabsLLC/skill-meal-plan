@@ -12,8 +12,8 @@
   "name": "Plan de repas",
   "description": "Un skill OVOS qui suggère un repas et vous aide à gérer votre liste de repas.",
   "examples": [
-    "Propose-moi un repas pour ce soir",
-    "Quel repas me proposes-tu pour ce soir ?",
+    "Propose-moi une idée de repas",
+    "Quel repas me proposes-tu ?",
     "Ajoute un repas à ma liste de repas",
     "Supprime un repas de ma liste",
     "Quels sont mes repas ?"
