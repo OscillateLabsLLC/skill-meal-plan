@@ -1,0 +1,30 @@
+{
+    "skill_id": "skill_meal_plan.oscillatelabsllc",
+    "source": "https://github.com/oscillatelabsllc/skill-meal-plan",
+    "package_name": "skill-meal-plan",
+    "pip_spec": "skill-meal-plan",
+    "license": "Apache-2.0",
+    "author": [
+        "Oscillate Labs <mike@oscillatelabs.net>"
+    ],
+    "icon": "https://raw.githack.com/FortAwesome/Font-Awesome/master/svgs/solid/utensils.svg",
+    "images": [],
+    "name": "skill-meal-plan",
+    "description": "En OVOS röstskill för måltidsförslag",
+    "examples": [
+        "Vad ska jag laga till middag?",
+        "Vad ska jag äta?",
+        "Vad ska jag äta ikväll?",
+        "Jag är hungrig",
+        "Vad blir det till middag?"
+    ],
+    "tags": [
+        "ovos",
+        "neon",
+        "skill",
+        "voice",
+        "meal",
+        "planning"
+    ],
+    "version": "2.1.0"
+}
