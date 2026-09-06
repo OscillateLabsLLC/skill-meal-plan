@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.2](https://github.com/OscillateLabsLLC/skill-meal-plan/compare/v2.2.1...v2.2.2) (2026-09-06)
+
+
+### Bug Fixes
+
+* **deps:** bump pytest and Pygments to clear Dependabot alerts ([#17](https://github.com/OscillateLabsLLC/skill-meal-plan/issues/17)) ([5ce9a31](https://github.com/OscillateLabsLLC/skill-meal-plan/commit/5ce9a318d5c0bdcf981b8c575ab04b3e3014f17e))
+
 ## [2.2.1](https://github.com/OscillateLabsLLC/skill-meal-plan/compare/v2.2.0...v2.2.1) (2026-08-19)
 
 
