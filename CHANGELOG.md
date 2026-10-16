@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.2.3](https://github.com/OscillateLabsLLC/skill-meal-plan/compare/v2.2.2...v2.2.3) (2026-10-16)
+
+
+### Bug Fixes
+
+* **deps:** bump urllib3 to 2.8.0 ([e1a1d05](https://github.com/OscillateLabsLLC/skill-meal-plan/commit/e1a1d05ac4e176bd86f542c6efddd15709dd1d4b))
+* **deps:** bump urllib3 to 2.8.0 ([96bc82f](https://github.com/OscillateLabsLLC/skill-meal-plan/commit/96bc82fe4515828e332b9c446615a231f1ae29b9))
+
 ## [2.2.2](https://github.com/OscillateLabsLLC/skill-meal-plan/compare/v2.2.1...v2.2.2) (2026-09-06)
 
 
