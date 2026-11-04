@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.2.4](https://github.com/OscillateLabsLLC/skill-meal-plan/compare/v2.2.3...v2.2.4) (2026-11-04)
+
+
+### Bug Fixes
+
+* **deps:** bump certifi to 2026.10.23 ([15818dc](https://github.com/OscillateLabsLLC/skill-meal-plan/commit/15818dc3791e4a701550f856923ed8ed20b7adb8))
+* **deps:** bump certifi to 2026.10.23 ([4b69558](https://github.com/OscillateLabsLLC/skill-meal-plan/commit/4b6955858babcfdc5c0cafec7806d08e9eb71bd1))
+
 ## [2.2.3](https://github.com/OscillateLabsLLC/skill-meal-plan/compare/v2.2.2...v2.2.3) (2026-10-16)
 
 
